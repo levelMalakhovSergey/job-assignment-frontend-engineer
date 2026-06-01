@@ -2,9 +2,9 @@ import React from "react";
 import { Card, Form, Input, Button, Typography, Space, message } from "antd";
 import { useHistory } from "react-router-dom";
 
-import { useCreateArticle } from "./hooks/useCreateArticle";
+import { useCreateArticle } from "../hooks/useCreateArticle";
 
-import { Layout } from "./components/Layout";
+import { Layout } from "../components/Layout";
 
 const { Title, Paragraph } = Typography;
 

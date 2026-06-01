@@ -2,10 +2,10 @@ import React from "react";
 import { Card, Form, Input, Button, Avatar, Typography, message } from "antd";
 import { useAtomValue } from "jotai";
 
-import { Layout } from "./components/Layout";
-import { PLACEHOLDER_USER_IMAGE } from "./utils/constants";
-import { useUpdateUser } from "./hooks/useUpdateUser";
-import { userAtom } from "./store/auth";
+import { Layout } from "../components/Layout";
+import { PLACEHOLDER_USER_IMAGE } from "../utils/constants";
+import { useUpdateUser } from "../hooks/useUpdateUser";
+import { userAtom } from "../store/auth";
 
 const { Title, Text } = Typography;
 

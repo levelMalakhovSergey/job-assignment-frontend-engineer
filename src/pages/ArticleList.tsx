@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { useAtomValue } from "jotai";
 
-import { ArticlePreview } from "./components/ArticlePreview";
-import { Layout } from "./components/Layout";
-import { useArticles } from "./hooks/useArticles";
-import { userAtom } from "./store/auth";
-import { ARTICLES_PAGE_SIZE } from "./utils/constants";
+import { ArticlePreview } from "../components/ArticlePreview";
+import { Layout } from "../components/Layout";
+import { useArticles } from "../hooks/useArticles";
+import { userAtom } from "../store/auth";
+import { ARTICLES_PAGE_SIZE } from "../utils/constants";
 
 export default function ArticleList() {
   const user = useAtomValue(userAtom);

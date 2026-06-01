@@ -2,10 +2,10 @@ import React, { FormEvent, useState } from "react";
 import { Link, Redirect, useHistory, useLocation } from "react-router-dom";
 import { useAtomValue } from "jotai";
 
-import { Layout } from "./components/Layout";
-import { useLogin } from "./hooks/useLogin";
-import { isAuthenticatedAtom } from "./store/auth";
-import { getApiErrors } from "./utils/getApiErrors";
+import { Layout } from "../components/Layout";
+import { useLogin } from "../hooks/useLogin";
+import { isAuthenticatedAtom } from "../store/auth";
+import { getApiErrors } from "../utils/getApiErrors";
 
 export default function LoginRegister() {
   const history = useHistory();

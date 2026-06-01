@@ -1,16 +1,16 @@
 import React from "react";
 import { Link, useParams } from "react-router-dom";
 
-import { AuthorImage } from "./components/AuthorImage";
-import { FavoriteArticleButton } from "./components/FavoriteArticleButton";
-import { FollowUserButton } from "./components/FollowUserButton";
-import { Layout } from "./components/Layout";
-import { useArticle } from "./hooks/useArticles";
-import { formatDate } from "./utils/formatDate";
-import { renderMarkdown } from "./utils/renderMarkdown";
-import AddComment from "./components/AddComment";
-import { useComments } from "./hooks/useComments";
-import Comment from "./components/Comment";
+import { AuthorImage } from "../components/AuthorImage";
+import { FavoriteArticleButton } from "../components/FavoriteArticleButton";
+import { FollowUserButton } from "../components/FollowUserButton";
+import { Layout } from "../components/Layout";
+import { useArticle } from "../hooks/useArticles";
+import { formatDate } from "../utils/formatDate";
+import { renderMarkdown } from "../utils/renderMarkdown";
+import AddComment from "../components/AddComment";
+import { useComments } from "../hooks/useComments";
+import Comment from "../components/Comment";
 
 type ArticleRouteParams = {
   slug: string;

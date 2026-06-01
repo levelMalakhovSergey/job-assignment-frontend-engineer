@@ -2,8 +2,8 @@ import { useSetAtom } from "jotai";
 import { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 
-import { Layout } from "./components/Layout";
-import { clearSessionAtom } from "./store/auth";
+import { Layout } from "../components/Layout";
+import { clearSessionAtom } from "../store/auth";
 
 export default function Logout() {
   const history = useHistory();

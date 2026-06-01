@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
+import { useAtomValue } from "jotai";
+import { userAtom } from "../store/auth";
 
-import { ArticlePreview } from "./components/ArticlePreview";
-import { FollowUserButton } from "./components/FollowUserButton";
-import { Layout } from "./components/Layout";
-import { useArticles } from "./hooks/useArticles";
-import { useProfile } from "./hooks/useFollowUser";
-import { ARTICLES_PAGE_SIZE } from "./utils/constants";
-import { getAuthorImageUrl } from "./utils/getAuthorImageUrl";
+import { ArticlePreview } from "../components/ArticlePreview";
+import { FollowUserButton } from "../components/FollowUserButton";
+import { Layout } from "../components/Layout";
+import { useArticles } from "../hooks/useArticles";
+import { useProfile } from "../hooks/useFollowUser";
+import { ARTICLES_PAGE_SIZE } from "../utils/constants";
+import { getAuthorImageUrl } from "../utils/getAuthorImageUrl";
 
 type ProfileRouteParams = {
   username: string;
@@ -16,9 +18,15 @@ type ProfileRouteParams = {
 export default function Profile() {
   const { username } = useParams<ProfileRouteParams>();
   const [selectedTab, setSelectedTab] = useState<"my" | "favorited">("my");
+  const currentUser = useAtomValue(userAtom);
+  const isOwner = currentUser?.username === username;
+
   const profileQuery = useProfile(username);
   const articlesQuery = useArticles(
-    selectedTab === "my"
+    // If viewing another user's profile, always show their articles (author)
+    !isOwner
+      ? { author: username, limit: ARTICLES_PAGE_SIZE, offset: 0 }
+      : selectedTab === "my"
       ? { author: username, limit: ARTICLES_PAGE_SIZE, offset: 0 }
       : { favorited: username, limit: ARTICLES_PAGE_SIZE, offset: 0 }
   );
@@ -71,20 +79,26 @@ export default function Profile() {
           <div className="row">
             <div className="col-xs-12 col-md-10 offset-md-1">
               <div className="articles-toggle">
-                <button
-                  type="button"
-                  className={`article-toggle-button ${selectedTab === "my" ? "active" : ""}`}
-                  onClick={() => setSelectedTab("my")}
-                >
-                  My Articles
-                </button>
-                <button
-                  type="button"
-                  className={`article-toggle-button ${selectedTab === "favorited" ? "active" : ""}`}
-                  onClick={() => setSelectedTab("favorited")}
-                >
-                  Favorited Articles
-                </button>
+                {isOwner ? (
+                  <>
+                    <button
+                      type="button"
+                      className={`article-toggle-button ${selectedTab === "my" ? "active" : ""}`}
+                      onClick={() => setSelectedTab("my")}
+                    >
+                      My Articles
+                    </button>
+                    <button
+                      type="button"
+                      className={`article-toggle-button ${selectedTab === "favorited" ? "active" : ""}`}
+                      onClick={() => setSelectedTab("favorited")}
+                    >
+                      Favorited Articles
+                    </button>
+                  </>
+                ) : (
+                  <div className="article-label">Articles</div>
+                )}
               </div>
 
               {articlesQuery.isLoading && (

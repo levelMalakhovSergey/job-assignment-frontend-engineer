@@ -75,7 +75,15 @@ select {
     margin-left: 0;
   }
 }
-
+.article-label {
+  display: inline-block;
+  padding: 4px 10px;
+  background: #e0e7ff;
+  color: #3730a3;
+  font-size: 2rem;
+  border-radius: 999px;
+  margin-top: 12px;
+}
 .home-page .banner,
 .article-page .banner {
   padding: 56px 0 48px;
