@@ -10,11 +10,13 @@ import { ARTICLES_PAGE_SIZE } from "./utils/constants";
 export default function ArticleList() {
   const user = useAtomValue(userAtom);
   const [feed, setFeed] = useState<"global" | "your">("global");
+  const [selectedTag, setSelectedTag] = useState<string | null>(null);
 
-  const queryParams =
-    feed === "your" && user
-      ? { limit: ARTICLES_PAGE_SIZE, offset: 0, author: user.username }
-      : { limit: ARTICLES_PAGE_SIZE, offset: 0 };
+  const queryParams = selectedTag
+    ? { limit: ARTICLES_PAGE_SIZE, offset: 0, tag: selectedTag }
+    : feed === "your" && user
+    ? { limit: ARTICLES_PAGE_SIZE, offset: 0, author: user.username }
+    : { limit: ARTICLES_PAGE_SIZE, offset: 0 };
 
   const { data, isLoading, isError } = useArticles(queryParams);
   const showYourFeed = Boolean(user);
@@ -68,15 +70,40 @@ export default function ArticleList() {
               <div className="sidebar">
                 <p>Popular Tags</p>
 
+                {selectedTag && (
+                  <div style={{ marginBottom: "12px" }}>
+                    <span
+                      className="tag-pill tag-default"
+                      style={{
+                        backgroundColor: "#5cb85c",
+                        color: "#fff",
+                        cursor: "pointer",
+                      }}
+                      onClick={() => setSelectedTag(null)}
+                    >
+                      {selectedTag} ✕
+                    </span>
+                  </div>
+                )}
+
                 <div className="tag-list">
-                  <span className="tag-pill tag-default">programming</span>
-                  <span className="tag-pill tag-default">javascript</span>
-                  <span className="tag-pill tag-default">emberjs</span>
-                  <span className="tag-pill tag-default">angularjs</span>
-                  <span className="tag-pill tag-default">react</span>
-                  <span className="tag-pill tag-default">mean</span>
-                  <span className="tag-pill tag-default">node</span>
-                  <span className="tag-pill tag-default">rails</span>
+                  {["programming", "javascript", "emberjs", "angularjs", "react", "mean", "node", "rails"].map(
+                    (tag) => (
+                      <span
+                        key={tag}
+                        className={`tag-pill tag-default ${selectedTag === tag ? "active-tag" : ""}`}
+                        style={{
+                          cursor: "pointer",
+                          opacity: selectedTag === tag ? 1 : 0.7,
+                          backgroundColor: selectedTag === tag ? "#5cb85c" : "",
+                          color: selectedTag === tag ? "#fff" : "",
+                        }}
+                        onClick={() => setSelectedTag(tag)}
+                      >
+                        {tag}
+                      </span>
+                    )
+                  )}
                 </div>
               </div>
             </div>

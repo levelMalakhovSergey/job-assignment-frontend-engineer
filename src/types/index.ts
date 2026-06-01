@@ -10,4 +10,8 @@ export type {
   SingleArticleResponse,
   User,
   UserResponse,
+  Comment,
+  MultipleCommentsResponse,
+  SingleCommentResponse,
+  NewCommentRequest,
 } from "./api";

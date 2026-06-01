@@ -18,10 +18,15 @@ export function useCreateArticle() {
       return response.article as Article;
     },
     onSuccess: (article) => {
+      // Set article detail cache
       queryClient.setQueryData(queryKeys.articles.detail(article.slug), {
         article,
       });
-      queryClient.invalidateQueries({ queryKey: queryKeys.articles.all, exact: false });
+      // Invalidate all article list queries (with any params) to force refetch
+      queryClient.invalidateQueries({
+        queryKey: queryKeys.articles.all,
+        exact: false,
+      });
     },
   });
 }

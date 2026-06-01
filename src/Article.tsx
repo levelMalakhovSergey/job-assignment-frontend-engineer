@@ -58,12 +58,11 @@ export default function Article() {
         profile={article.author}
         className="btn btn-sm btn-outline-secondary"
       />
-      &nbsp;&nbsp;
-      {/* <FavoriteArticleButton
+      <FavoriteArticleButton
         article={article}
         className="btn btn-sm btn-outline-primary"
         showLabel
-      /> */}
+      />
     </div>
   );
 

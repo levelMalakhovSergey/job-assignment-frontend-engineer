@@ -81,16 +81,17 @@ select {
   padding: 56px 0 48px;
   border-radius: 20px;
   margin-bottom: 24px;
+  margin-inline: 30px;
   overflow: hidden;
 }
 
 .home-page .banner {
-  background: linear-gradient(135deg, #4f8dff 0%, #1890ff 100%);
+  background: #a0b8f8;
   color: #ffffff;
 }
 
 .article-page .banner {
-  background: linear-gradient(135deg, #1d4ed8 0%, #3b82f6 100%);
+  background: #7d95d6;
   color: #ffffff;
 }
 
@@ -340,6 +341,9 @@ select {
   display: flex;
   flex-wrap: wrap;
   gap: 14px;
+  background: #d0d6dd;
+  max-width: max-content;
+  border-radius: 999px;
   align-items: center;
   margin-bottom: 18px;
 }
