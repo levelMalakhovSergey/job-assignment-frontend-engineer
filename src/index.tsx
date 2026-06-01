@@ -2,11 +2,16 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 import App from "./App";
+import "antd/dist/reset.css";
+import "./index.css";
+import { AppProviders } from "./providers/AppProviders";
 import reportWebVitals from "./reportWebVitals";
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <AppProviders>
+      <App />
+    </AppProviders>
   </React.StrictMode>,
   document.getElementById("root")
 );
