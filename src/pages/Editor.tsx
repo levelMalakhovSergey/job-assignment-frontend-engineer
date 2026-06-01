@@ -38,20 +38,20 @@ export default function Editor() {
 
             <Form layout="vertical" className="editor-form" onFinish={onFinish} name="editorForm">
               <Form.Item name="title" label="Article Title" rules={[{ required: true, message: 'Please enter a title' }]}>
-                <Input size="large" placeholder="Article Title" />
+                <Input data-testid="editor-title" size="large" placeholder="Article Title" />
               </Form.Item>
               <Form.Item name="description" label="What’s this article about?" rules={[{ required: true, message: 'Please enter a short description' }]}>
-                <Input placeholder="A short description of your article" />
+                <Input data-testid="editor-description" placeholder="A short description of your article" />
               </Form.Item>
               <Form.Item name="body" label="Write your article (in markdown)" rules={[{ required: true, message: 'Please write the article body' }]}>
-                <Input.TextArea rows={10} placeholder="Write your article (in markdown)" />
+                <Input.TextArea data-testid="editor-body" rows={10} placeholder="Write your article (in markdown)" />
               </Form.Item>
               <Form.Item name="tags" label="Enter tags">
-                <Input placeholder="tag1, tag2, tag3" />
+                <Input data-testid="editor-tags" placeholder="tag1, tag2, tag3" />
               </Form.Item>
               <Form.Item>
                 <Space direction="vertical" style={{ width: "100%" }}>
-                  <Button type="primary" size="large" htmlType="submit" loading={createMutation.isLoading}>
+                  <Button data-testid="editor-submit" type="primary" size="large" htmlType="submit" loading={createMutation.isLoading}>
                     Publish Article
                   </Button>
                   <Paragraph type="secondary" className="editor-note">

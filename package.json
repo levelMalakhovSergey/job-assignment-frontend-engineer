@@ -14,7 +14,9 @@
     "lint": "eslint --ext .ts,.tsx src",
     "prepare": "husky install",
     "start": "react-scripts start",
-    "test": "react-scripts test"
+    "test": "react-scripts test",
+    "test:e2e": "playwright test",
+    "test:e2e:headed": "playwright test --headed"
   },
   "dependencies": {
     "@tanstack/react-query": "4.36.1",
@@ -36,6 +38,7 @@
     "web-vitals": "2.1.2"
   },
   "devDependencies": {
+    "@playwright/test": "^1.60.0",
     "@testing-library/jest-dom": "5.14.1",
     "@testing-library/react": "12.1.2",
     "@testing-library/user-event": "13.4.1",

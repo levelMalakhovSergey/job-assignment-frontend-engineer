@@ -23,3 +23,39 @@ yarn-debug.log*
 yarn-error.log*
 .eslintcache
 
+# temporary files
+*.log
+*.tmp
+*.temp
+*.swp
+*.swo
+*.bak
+*.old
+*.orig
+*.cache
+
+# media and large files
+/videos
+/videos/**
+*.mp4
+*.mov
+*.avi
+*.mkv
+*.webm
+*.flv
+*.ogg
+*.ogv
+*.wmv
+*.m4v
+*.3gp
+
+# test and CI artifacts
+/playwright-report
+/test-results
+
+# editor files
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+

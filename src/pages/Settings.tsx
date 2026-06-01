@@ -64,22 +64,22 @@ export default function Settings() {
               }}
             >
               <Form.Item name="image" label="Profile picture URL">
-                <Input placeholder="URL of profile picture" />
+                <Input data-testid="settings-image" placeholder="URL of profile picture" />
               </Form.Item>
               <Form.Item name="username" label="Your Name">
-                <Input placeholder="Your Name" />
+                <Input data-testid="settings-username" placeholder="Your Name" />
               </Form.Item>
               <Form.Item name="bio" label="Short bio about you">
-                <Input.TextArea rows={6} placeholder="Short bio about you" />
+                <Input.TextArea data-testid="settings-bio" rows={6} placeholder="Short bio about you" />
               </Form.Item>
               <Form.Item name="email" label="Email">
-                <Input placeholder="Email" />
+                <Input data-testid="settings-email" placeholder="Email" />
               </Form.Item>
               <Form.Item name="password" label="Password">
-                <Input.Password placeholder="Password" />
+                <Input.Password data-testid="settings-password" placeholder="Password" />
               </Form.Item>
               <Form.Item>
-                <Button type="primary" size="large" htmlType="submit" loading={update.isLoading}>
+                <Button data-testid="settings-submit" type="primary" size="large" htmlType="submit" loading={update.isLoading}>
                   Update Settings
                 </Button>
               </Form.Item>
