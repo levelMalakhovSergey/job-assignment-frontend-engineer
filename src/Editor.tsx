@@ -1,11 +1,29 @@
 import React from "react";
-import { Card, Form, Input, Button, Typography, Space } from "antd";
+import { Card, Form, Input, Button, Typography, Space, message } from "antd";
+import { useHistory } from "react-router-dom";
+
+import { useCreateArticle } from "./hooks/useCreateArticle";
 
 import { Layout } from "./components/Layout";
 
 const { Title, Paragraph } = Typography;
 
 export default function Editor() {
+  const history = useHistory();
+  const createMutation = useCreateArticle();
+
+  const onFinish = async (values: any) => {
+    const { title, description, body, tags } = values;
+    const tagList = typeof tags === "string" && tags.trim() ? tags.split(",").map((t: string) => t.trim()).filter(Boolean) : [];
+
+    try {
+      const article = await createMutation.mutateAsync({ title, description, body, tagList });
+      message.success("Article created");
+      history.push(`/${article.slug}`);
+    } catch (err: any) {
+      message.error(err?.message || "Failed to create article");
+    }
+  };
   return (
     <Layout>
       <div className="editor-page">
@@ -18,22 +36,22 @@ export default function Editor() {
               </Paragraph>
             </div>
 
-            <Form layout="vertical" className="editor-form">
-              <Form.Item label="Article Title">
+            <Form layout="vertical" className="editor-form" onFinish={onFinish} name="editorForm">
+              <Form.Item name="title" label="Article Title" rules={[{ required: true, message: 'Please enter a title' }]}>
                 <Input size="large" placeholder="Article Title" />
               </Form.Item>
-              <Form.Item label="What’s this article about?">
+              <Form.Item name="description" label="What’s this article about?" rules={[{ required: true, message: 'Please enter a short description' }]}>
                 <Input placeholder="A short description of your article" />
               </Form.Item>
-              <Form.Item label="Write your article (in markdown)">
+              <Form.Item name="body" label="Write your article (in markdown)" rules={[{ required: true, message: 'Please write the article body' }]}>
                 <Input.TextArea rows={10} placeholder="Write your article (in markdown)" />
               </Form.Item>
-              <Form.Item label="Enter tags">
+              <Form.Item name="tags" label="Enter tags">
                 <Input placeholder="tag1, tag2, tag3" />
               </Form.Item>
               <Form.Item>
                 <Space direction="vertical" style={{ width: "100%" }}>
-                  <Button type="primary" size="large">
+                  <Button type="primary" size="large" htmlType="submit" loading={createMutation.isLoading}>
                     Publish Article
                   </Button>
                   <Paragraph type="secondary" className="editor-note">

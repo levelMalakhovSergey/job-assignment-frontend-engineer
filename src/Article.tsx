@@ -8,6 +8,9 @@ import { Layout } from "./components/Layout";
 import { useArticle } from "./hooks/useArticles";
 import { formatDate } from "./utils/formatDate";
 import { renderMarkdown } from "./utils/renderMarkdown";
+import AddComment from "./components/AddComment";
+import { useComments } from "./hooks/useComments";
+import Comment from "./components/Comment";
 
 type ArticleRouteParams = {
   slug: string;
@@ -17,6 +20,7 @@ export default function Article() {
   const { slug } = useParams<ArticleRouteParams>();
   const { data, isLoading, isError } = useArticle(slug);
   const article = data?.article;
+  const commentsQuery = useComments(slug || "");
 
   if (isLoading) {
     return (
@@ -55,11 +59,11 @@ export default function Article() {
         className="btn btn-sm btn-outline-secondary"
       />
       &nbsp;&nbsp;
-      <FavoriteArticleButton
+      {/* <FavoriteArticleButton
         article={article}
         className="btn btn-sm btn-outline-primary"
         showLabel
-      />
+      /> */}
     </div>
   );
 
@@ -90,76 +94,16 @@ export default function Article() {
 
           <div className="row">
             <div className="col-xs-12 col-md-8 offset-md-2">
-              <form className="card comment-form">
-                <div className="card-block">
-                  <textarea
-                    className="form-control"
-                    placeholder="Write a comment..."
-                    rows={3}
-                    readOnly
-                  />
-                </div>
-                <div className="card-footer">
-                  <img
-                    src="http://i.imgur.com/Qr71crq.jpg"
-                    className="comment-author-img"
-                    alt=""
-                  />
-                  <button className="btn btn-sm btn-primary" type="button">
-                    Post Comment
-                  </button>
-                </div>
-              </form>
+              <AddComment slug={article.slug} />
 
-              <div className="card">
-                <div className="card-block">
-                  <p className="card-text">
-                    With supporting text below as a natural lead-in to additional
-                    content.
-                  </p>
-                </div>
-                <div className="card-footer">
-                  <a href="/#/profile/jacobschmidt" className="comment-author">
-                    <img
-                      src="http://i.imgur.com/Qr71crq.jpg"
-                      className="comment-author-img"
-                      alt=""
-                    />
-                  </a>
-                  &nbsp;
-                  <a href="/#/profile/jacobschmidt" className="comment-author">
-                    Jacob Schmidt
-                  </a>
-                  <span className="date-posted">Dec 29th</span>
-                </div>
-              </div>
-
-              <div className="card">
-                <div className="card-block">
-                  <p className="card-text">
-                    With supporting text below as a natural lead-in to additional
-                    content.
-                  </p>
-                </div>
-                <div className="card-footer">
-                  <a href="/#/profile/jacobschmidt" className="comment-author">
-                    <img
-                      src="http://i.imgur.com/Qr71crq.jpg"
-                      className="comment-author-img"
-                      alt=""
-                    />
-                  </a>
-                  &nbsp;
-                  <a href="/#/profile/jacobschmidt" className="comment-author">
-                    Jacob Schmidt
-                  </a>
-                  <span className="date-posted">Dec 29th</span>
-                  <span className="mod-options">
-                    <i className="ion-edit" />
-                    <i className="ion-trash-a" />
-                  </span>
-                </div>
-              </div>
+              {/* comments list */}
+              {commentsQuery.isLoading ? (
+                <p>Loading comments...</p>
+              ) : (
+                (commentsQuery.data?.comments || []).map((c) => (
+                  <Comment key={c.id} comment={c} slug={article.slug} />
+                ))
+              )}
             </div>
           </div>
         </div>

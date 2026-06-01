@@ -53,6 +53,28 @@ export type ProfileResponse = {
   profile: Profile;
 };
 
+export type Comment = {
+  id: number;
+  createdAt: string;
+  updatedAt: string;
+  body: string;
+  author: Profile;
+};
+
+export type MultipleCommentsResponse = {
+  comments: Comment[];
+};
+
+export type SingleCommentResponse = {
+  comment: Comment;
+};
+
+export type NewCommentRequest = {
+  comment: {
+    body: string;
+  };
+};
+
 export type UserResponse = {
   user: User;
 };

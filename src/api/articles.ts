@@ -44,6 +44,20 @@ export async function unfavoriteArticle(
   return data;
 }
 
+export async function createArticle(article: {
+  title: string;
+  description: string;
+  body: string;
+  tagList?: string[];
+}): Promise<SingleArticleResponse> {
+  const { data } = await apiClient.post<SingleArticleResponse>(
+    `/articles`,
+    { article }
+  );
+
+  return data;
+}
+
 export const articlesQueryOptions = (params?: ArticlesQueryParams) => ({
   queryKey: queryKeys.articles.list(params),
   queryFn: () => fetchArticles(params),
